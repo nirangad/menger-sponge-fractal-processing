@@ -6,4 +6,11 @@
 ## Usage
 
 [Download](https://processing.org/download) Processing and then open and run
-`MengerSpongeFractal.pde`
+```MengerSpongeFractal.pde```
+
+Click on the cube to generate next fractal. Note: Clicking many times will slow down the app
+
+## Screenshots
+
+ ![One click](SingleClick.png)
+ ![Two clicks](DoubleClicks.png)
