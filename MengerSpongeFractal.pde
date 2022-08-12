@@ -1,0 +1,73 @@
+ ArrayList<Box> sponge;
+
+void setup() {
+  size(800, 600, P3D);
+  sponge = new ArrayList<Box>(); 
+  Box bx = new Box(0,0,0, 250);
+  sponge.add(bx);
+}
+
+void draw() {
+  background(0);  
+  
+  translate(width/2, height/2);
+  
+  rotateX(frameCount * 0.01);
+  rotateY(frameCount * 0.01);
+  
+  lights();
+  
+  for(Box bx: sponge){
+    bx.show();
+  }  
+  //noLoop();
+}
+
+void mousePressed() {
+  ArrayList<Box> boxes = new ArrayList<Box>();
+  for(Box bx: sponge) {
+    boxes.addAll(bx.generate());
+  }
+  sponge = boxes;
+}
+
+
+class Box{
+  PVector pos;
+  float r;
+  
+  Box(float x, float y, float z, float rr) {
+    pos = new PVector(x, y, z);
+    r = rr;
+  }
+  
+  ArrayList<Box> generate() {
+    ArrayList<Box> boxes = new ArrayList<Box>();
+    float ratio = r / 3;
+    for(int x = -1; x < 2; x++) {
+      for(int y = -1; y < 2; y++) {
+        for(int z = -1; z < 2; z++) {
+          int zeros = 0;
+          if(x == 0) zeros++;
+          if(y == 0) zeros++;
+          if(z == 0) zeros++;          
+          
+          if(zeros < 2) {
+            Box bx = new Box(pos.x + ratio * x, pos.y + ratio * y, pos.z + ratio * z, ratio);
+            boxes.add(bx);
+          }
+        }
+      }
+    }
+    return boxes;
+  }
+  
+  void show() {
+    pushMatrix();
+    stroke(80);
+    fill(250);
+    translate(pos.x, pos.y, pos.z);
+    box(r);
+    popMatrix();
+  }
+}
